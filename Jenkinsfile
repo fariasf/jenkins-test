@@ -6,13 +6,13 @@ pipeline {
         stage('Coding Standards') {
           steps {
             echo 'Running PHPCS'
-            sh('phpcs . --report=checkstyle | tee > phpcs.xml')
+            sh('phpcs . --report=checkstyle 2>&1| tee phpcs.xml')
           }
         }
         stage('Code Quality') {
           steps {
             echo 'Running PHPMD'
-            sh('php phpmd/phpmd.phar . xml phpmd/ruleset.xml | tee > phpmd.xml')
+            sh('php phpmd/phpmd.phar . xml phpmd/ruleset.xml 2>&1 | tee phpmd.xml')
           }
         }
       }
