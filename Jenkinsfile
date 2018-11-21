@@ -7,7 +7,6 @@ pipeline {
           steps {
             echo 'Running PHPCS'
             sh('phpcs . --report=checkstyle')
-			ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: '', gitHubUrl: '', oAuth2Token: '', pullRequestId: '', repositoryName: '', repositoryOwner: ''])
           }
         }
         stage('Code Quality') {
@@ -78,6 +77,12 @@ pipeline {
       steps {
         echo 'Deploying to production'
       }
+    }
+  }
+
+  post {
+    failure {
+      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: '', gitHubUrl: '', oAuth2Token: '', pullRequestId: '', repositoryName: '', repositoryOwner: ''])
     }
   }
 }
