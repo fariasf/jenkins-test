@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Prepare'){
     	steps {
-    		sh "set -o pipefail"
+    		sh('set -o pipefail')
     	}
     }
     stage('Static checks') {
