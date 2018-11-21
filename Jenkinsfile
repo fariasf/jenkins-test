@@ -12,7 +12,7 @@ pipeline {
         stage('Code Quality') {
           steps {
             echo 'Running PHPMD'
-            sleep 10
+            sh('php phpmd/phpmd.phar . xml phpmd/ruleset.xml > phpmd.xml')
           }
         }
       }
@@ -82,7 +82,20 @@ pipeline {
 
   post {
     failure {
-      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: 'github', gitHubUrl: 'https://api.github.com/', oAuth2Token: '', pullRequestId: env.CHANGE_ID, repositoryName: 'jenkins-test', repositoryOwner: 'fariasf', violationConfigs: [[parser: 'CHECKSTYLE', pattern: '.*/phpcs.xml', reporter: 'Checkstyle']]])
+      ViolationsToGitHub([
+        commentOnlyChangedContent: true,
+        commentTemplate: '',
+        createSingleFileComments: true,
+        credentialsId: 'github',
+        gitHubUrl: 'https://api.github.com/',
+        pullRequestId: env.CHANGE_ID,
+        repositoryName: 'jenkins-test',
+        repositoryOwner: 'fariasf',
+        violationConfigs: [
+          [parser: 'CHECKSTYLE', pattern: '.*/phpcs.xml', reporter: 'Checkstyle']
+          [parser: 'PMD', pattern: '.*/phpmd.xml', reporter: 'PMD']
+        ]
+       ])
     }
   }
 }
