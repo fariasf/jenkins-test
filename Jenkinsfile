@@ -5,11 +5,9 @@ pipeline {
       parallel {
         stage('Coding Standards') {
           steps {
-            script {
-              pullRequest.comment('Does _this_ work?')
-            }
             echo 'Running PHPCS'
-            sleep 5
+            sh phpcs . --report=checkstyle
+			ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: '', gitHubUrl: '', oAuth2Token: '', pullRequestId: '', repositoryName: '', repositoryOwner: ''])
           }
         }
         stage('Code Quality') {
