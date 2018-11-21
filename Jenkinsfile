@@ -7,13 +7,7 @@ pipeline {
           steps {
             echo 'Running PHPCS'
             sh phpcs . --report=checkstyle
-			step([
-				$class: 'ViolationsToGitHubRecorder', 
-				config: [
-					createCommentWithAllSingleFileComments: true, 
-					createSingleFileComments: true, 
-					commentOnlyChangedContent: true, 				]
-			])
+			ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: '', gitHubUrl: '', oAuth2Token: '', pullRequestId: '', repositoryName: '', repositoryOwner: ''])
           }
         }
         stage('Code Quality') {
