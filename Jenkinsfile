@@ -5,6 +5,7 @@ pipeline {
       parallel {
         stage('Coding Standards') {
           steps {
+            pullRequest.comment('Does _this_ work?')
             echo 'Running PHPCS'
             sleep 5
           }
