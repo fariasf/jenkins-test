@@ -5,7 +5,6 @@ pipeline {
       parallel {
         stage('Coding Standards') {
           steps {
-            githubPRStatusPublisher buildMessage: message(failureMsg: githubPRMessage('Can\'t set status; build failed.'), successMsg: githubPRMessage('Can\'t set status; build succeeded.')), statusMsg: githubPRMessage('${GITHUB_PR_COND_REF} demo message'), unstableAs: 'FAILURE', errorHandler: statusOnPublisherError('UNSTABLE'), statusVerifier: { buildStatus: '?' }
             echo 'Running PHPCS'
             sleep 5
           }
@@ -14,7 +13,6 @@ pipeline {
           steps {
             echo 'Running PHPMD'
             sleep 10
-            githubPRComment comment: githubPRMessage('Build ${BUILD_NUMBER} ${BUILD_STATUS} - LGTM'), errorHandler: statusOnPublisherError('UNSTABLE'), statusVerifier: { buildStatus: '?' }
           }
         }
       }
