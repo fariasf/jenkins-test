@@ -5,7 +5,7 @@ pipeline {
       parallel {
         stage('Coding Standards') {
           steps {
-            githubPRStatusPublisher statusMsg: githubPRMessage('${GITHUB_PR_COND_REF} demo message'), unstableAs: 'FAILURE'
+            githubPRStatusPublisher buildMessage: message(failureMsg: githubPRMessage('Can\'t set status; build failed.'), successMsg: githubPRMessage('Can\'t set status; build succeeded.')), statusMsg: githubPRMessage('${GITHUB_PR_COND_REF} demo message'), unstableAs: 'FAILURE'
             echo 'Running PHPCS'
             sleep 5
           }
