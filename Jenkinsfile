@@ -14,7 +14,7 @@ pipeline {
           steps {
             echo 'Running PHPMD'
             sleep 10
-            githubPRComment comment: githubPRMessage('Build ${BUILD_NUMBER} ${BUILD_STATUS} - LGTM'), errorHandler: statusOnPublisherError('UNSTABLE')
+            githubPRComment comment: githubPRMessage('Build ${BUILD_NUMBER} ${BUILD_STATUS} - LGTM'), errorHandler: statusOnPublisherError('UNSTABLE'), statusVerifier: buildStatus: '?'
           }
         }
       }
