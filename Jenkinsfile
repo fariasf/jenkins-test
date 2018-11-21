@@ -29,12 +29,12 @@ pipeline {
       parallel {
         stage('Acceptance tests') {
           steps {
-            sh 'echo "Running Behat"'
+            echo 'Running Behat'
           }
         }
         stage('Backend Performance') {
           steps {
-            sh 'echo "Running Blackfire"'
+            echo 'Running Blackfire'
           }
         }
         stage('Frontend Performance') {
