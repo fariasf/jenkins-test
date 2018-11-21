@@ -6,7 +6,7 @@ pipeline {
         stage('Coding Standards') {
           steps {
             echo 'Running PHPCS'
-            sh phpcs . --report=checkstyle
+            sh('phpcs . --report=checkstyle')
 			ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: '', gitHubUrl: '', oAuth2Token: '', pullRequestId: '', repositoryName: '', repositoryOwner: ''])
           }
         }
