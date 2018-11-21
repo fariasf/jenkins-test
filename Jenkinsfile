@@ -6,11 +6,13 @@ pipeline {
         stage('Coding Standards') {
           steps {
             echo 'Running PHPCS'
+            sleep 5
           }
         }
         stage('Code Quality') {
           steps {
             echo 'Running PHPMD'
+            sleep 10
           }
         }
       }
@@ -18,11 +20,13 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building sources'
+        sleep 30
       }
     }
     stage('Deploy to test') {
       steps {
         echo 'Deploying to test environment'
+        sleep 30
       }
     }
     stage('QA') {
@@ -30,21 +34,25 @@ pipeline {
         stage('Acceptance tests') {
           steps {
             echo 'Running Behat'
+            sleep 30
           }
         }
         stage('Backend Performance') {
           steps {
             echo 'Running Blackfire'
+            sleep 30
           }
         }
         stage('Frontend Performance') {
           steps {
             echo 'Running Lighthouse'
+            sleep 30
           }
         }
         stage('Visual Regression Testing') {
           steps {
             echo 'Running image comparison'
+            sleep 30
           }
         }
       }
@@ -57,6 +65,7 @@ pipeline {
     stage('Deploy to staging') {
       steps {
         echo 'Deploying to staging'
+        sleep 30
       }
     }
     stage('Smoke test') {
