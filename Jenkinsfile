@@ -6,8 +6,7 @@ pipeline {
         stage('Coding Standards') {
           steps {
             echo 'Running PHPCS'
-            sh('mkdir -p build/reports/checkstyle')
-            sh('phpcs . --report=checkstyle > build/reports/checkstyle/phpcs.xml')
+            sh('phpcs . --report=checkstyle > phpcs.xml')
           }
         }
         stage('Code Quality') {
@@ -83,7 +82,7 @@ pipeline {
 
   post {
     failure {
-      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: 'github', gitHubUrl: 'https://api.github.com/', oAuth2Token: '', pullRequestId: env.CHANGE_ID, repositoryName: 'jenkins-test', repositoryOwner: 'fariasf', violationConfigs: [[parser: 'CHECKSTYLE', pattern: './build/reports/checkstyle/*.xml', reporter: 'Checkstyle']]])
+      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: 'github', gitHubUrl: 'https://api.github.com/', oAuth2Token: '', pullRequestId: env.CHANGE_ID, repositoryName: 'jenkins-test', repositoryOwner: 'fariasf', violationConfigs: [[parser: 'CHECKSTYLE', pattern: '.*/phpcs.xml', reporter: 'Checkstyle']]])
     }
   }
 }
