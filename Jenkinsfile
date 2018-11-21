@@ -83,7 +83,7 @@ pipeline {
 
   post {
     failure {
-      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: 'github', gitHubUrl: 'https://api.github.com/', oAuth2Token: '', pullRequestId: '', repositoryName: 'jenkins-test', repositoryOwner: 'fariasf', violationConfigs: [[parser: 'CHECKSTYLE', pattern: './build/reports/checkstyle/*.xml', reporter: 'Checkstyle']]])
+      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: 'github', gitHubUrl: 'https://api.github.com/', oAuth2Token: '', pullRequestId: env.CHANGE_ID, repositoryName: 'jenkins-test', repositoryOwner: 'fariasf', violationConfigs: [[parser: 'CHECKSTYLE', pattern: './build/reports/checkstyle/*.xml', reporter: 'Checkstyle']]])
     }
   }
 }
