@@ -82,7 +82,7 @@ pipeline {
 
   post {
     failure {
-      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', createSingleFileComments: true, credentialsId: 'github', pullRequestId: env.CHANGE_ID, repositoryName: 'jenkins-test', repositoryOwner: 'fariasf'])
+      ViolationsToGitHub([commentOnlyChangedContent: true, commentTemplate: '', gitHubUrl: 'https://api.github.com/', createSingleFileComments: true, credentialsId: 'github', pullRequestId: env.CHANGE_ID, repositoryName: 'jenkins-test', repositoryOwner: 'fariasf'])
     }
   }
 }
