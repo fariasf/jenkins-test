@@ -92,7 +92,7 @@ pipeline {
         repositoryName: 'jenkins-test',
         repositoryOwner: 'fariasf',
         violationConfigs: [
-          [parser: 'CHECKSTYLE', pattern: '.*/phpcs.xml', reporter: 'Checkstyle']
+          [parser: 'CHECKSTYLE', pattern: '.*/phpcs.xml', reporter: 'Checkstyle'],
           [parser: 'PMD', pattern: '.*/phpmd.xml', reporter: 'PMD']
         ]
        ])
