@@ -1,23 +1,18 @@
 pipeline {
   agent any
   stages {
-    stage('Prepare'){
-    	steps {
-    		sh('set -o pipefail')
-    	}
-    }
     stage('Static checks') {
       parallel {
         stage('Coding Standards') {
           steps {
             echo 'Running PHPCS'
-            sh('phpcs . --report=checkstyle 2>&1| tee phpcs.xml')
+            sh('phpcs . --report=checkstyle | tee phpcs.xml && [ ${PIPESTATUS[0]} -eq 0 ]')
           }
         }
         stage('Code Quality') {
           steps {
             echo 'Running PHPMD'
-            sh('php phpmd/phpmd.phar . xml phpmd/ruleset.xml 2>&1 | tee phpmd.xml')
+            sh('php phpmd/phpmd.phar . xml phpmd/ruleset.xml | tee phpmd.xml && [ ${PIPESTATUS[0]} -eq 0 ]')
           }
         }
       }
