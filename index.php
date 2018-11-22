@@ -38,26 +38,6 @@ Class Foo
      */
     public function bar()
     {
-        if ( true ) {
-            for ( $i = 0; $i < 1000; $i++ ) {
-                if ( false ) {
-                    if ( true ) {
-                        $i--;
-                    } else {
-                        // Nothing
-                    }
-                } else {
-                    if ( $a = $b ) {
-                        if ( $c ) {
-                            continue;
-                        }
-                    }
-                }
-            }
-        } else {
-            if ( !!true ) {
-                // More stuff
-            }
-        }
+        echo 'Hope this passes';
     }
 }
