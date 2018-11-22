@@ -1,15 +1,17 @@
+#!/usr/bin/env groovy
+
 pipeline {
   agent any
   stages {
     stage('Static checks') {
       parallel {
-        stage('Coding Standards') {
+        stage('PHPCS') {
           steps {
             echo 'Running PHPCS'
             sh('phpcs . --report=checkstyle | tee phpcs.xml && [ ${PIPESTATUS[0]} -eq 0 ]')
           }
         }
-        stage('Code Quality') {
+        stage('PHPMD') {
           steps {
             echo 'Running PHPMD'
             sh('php phpmd/phpmd.phar . xml phpmd/ruleset.xml | tee phpmd.xml && [ ${PIPESTATUS[0]} -eq 0 ]')
@@ -17,14 +19,10 @@ pipeline {
         }
       }
     }
-    stage('Build') {
+    stage('Build & Deploy') {
       steps {
         echo 'Building sources'
         sleep 30
-      }
-    }
-    stage('Deploy to test') {
-      steps {
         echo 'Deploying to test environment'
         sleep 30
       }
@@ -55,27 +53,6 @@ pipeline {
             sleep 30
           }
         }
-      }
-    }
-    stage('PO') {
-      steps {
-        input 'Does this look good?'
-      }
-    }
-    stage('Deploy to staging') {
-      steps {
-        echo 'Deploying to staging'
-        sleep 30
-      }
-    }
-    stage('Smoke test') {
-      steps {
-        input 'Ready to go live?'
-      }
-    }
-    stage('Deploy to production') {
-      steps {
-        echo 'Deploying to production'
       }
     }
   }
